@@ -16,8 +16,8 @@ const WELCOME = {
 const QUICK = [
   { label: '/ search flights',    text: 'Find flights from IST to FRA on 2026-05-01' },
   { label: '/ buy ticket',        text: 'Buy a ticket on flight ID 1 for John Doe' },
-  { label: '/ check in',          text: 'Check in with ticket ID 3' },
-  { label: '/ passenger list',    text: 'Show passengers for flight ID 1' },
+  { label: '/ check in',          text: 'Check in passenger John Doe on flight TK101 on 2026-04-01T09:00:00' },
+  { label: '/ passenger list',    text: 'Show passengers for flight TK101 on 2026-04-01T09:00:00' },
 ];
 
 export default function App() {
@@ -85,7 +85,8 @@ export default function App() {
         } else if (parsed.action === 'checkin') {
           result = await checkIn(BASE_URL, jwt, parsed.params);
         } else if (parsed.action === 'get_passengers') {
-          result = await getPassengers(BASE_URL, jwt, parsed.params.flight_id);
+          // FIX #3: pass params object instead of just flight_id
+          result = await getPassengers(BASE_URL, jwt, parsed.params);
         }
       } catch (fetchErr) {
         addMessage({
@@ -101,7 +102,9 @@ export default function App() {
       const resultMsg = { role: 'assistant', text: '' };
 
       if (parsed.action === 'search_flights') {
-        const flights = result.data?.flights
+        // FIX #4: backend returns data.data.items, not data.flights or data.results
+        const flights = result.data?.data?.items
+          || result.data?.flights
           || result.data?.results
           || (Array.isArray(result.data) ? result.data : []);
         resultMsg.text    = flights.length ? '' : 'No flights found for that route.';
@@ -109,13 +112,16 @@ export default function App() {
       } else if (parsed.action === 'buy_ticket') {
         const d = result.data;
         const success = result.status === 200 || result.status === 201 || d?.success === true;
-        resultMsg.text    = success ? 'Ticket purchased successfully.' : 'Purchase failed — check flight ID and credentials.';
+        resultMsg.text    = success ? 'Ticket purchased successfully.' : (d?.message || 'Purchase failed — check flight details and credentials.');
         resultMsg.booking = d?.data || d;
       } else if (parsed.action === 'checkin') {
-        resultMsg.text    = result.status === 200 ? 'Check-in complete.' : 'Check-in failed — verify ticket ID.';
-        resultMsg.checkin = result.data;
+        resultMsg.text    = result.status === 200 ? 'Check-in complete.' : (result.data?.message || 'Check-in failed — verify flight number, date, and passenger name.');
+        resultMsg.checkin = result.data?.data || result.data;
       } else if (parsed.action === 'get_passengers') {
-        const list = result.data?.passengers || (Array.isArray(result.data) ? result.data : []);
+        // backend returns data.data.items
+        const list = result.data?.data?.items
+          || result.data?.passengers
+          || (Array.isArray(result.data) ? result.data : []);
         resultMsg.text       = list.length ? `${list.length} passenger(s) on this flight:` : 'No passengers found.';
         resultMsg.passengers = list;
       }
