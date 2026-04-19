@@ -1,6 +1,6 @@
 # SkyDesk — Flight AI Agent
 
-**SE4458 Project · İlayda Gün**
+**SE4458 Assignment · İlayda Gün**
 
 SkyDesk is a dark-themed React-based AI flight assistant that allows users to interact with an airline ticketing system using natural language. It is built on top of an existing Flask backend deployed on AWS EC2.
 
@@ -26,7 +26,7 @@ The system integrates an AI agent (Claude) to interpret user input and map it to
   http://63.178.228.72/
 
 - **Demo Video:**  
-  *(Video link here)*
+  https://drive.google.com/drive/folders/1tSTprFwYAZ5krZP2arHcQ6TVE1a2Xi39?usp=sharing
 
 ---
 
@@ -196,7 +196,7 @@ Make sure:
 
 ## Project Demonstration
 
-👉 *(Video link here)*
+https://drive.google.com/drive/folders/1tSTprFwYAZ5krZP2arHcQ6TVE1a2Xi39?usp=sharing
 
 ---
 
