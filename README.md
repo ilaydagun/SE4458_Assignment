@@ -23,7 +23,7 @@ The system integrates an AI agent (Claude) to interpret user input and map it to
   http://63.178.228.72:5000/apidocs/
 
 - **Chatbot Link:**  
-  63.178.228.72
+  http://63.178.228.72/
 
 - **Demo Video:**  
   *(Video link here)*
