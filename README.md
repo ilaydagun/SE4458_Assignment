@@ -14,16 +14,19 @@ The system integrates an AI agent (Claude) to interpret user input and map it to
   https://github.com/ilaydagun/SE4458_Midterm  
 
 - **Frontend (This Project):**  
-  *(Add your repo link here)*
-
+  https://github.com/ilaydagun/SE4458_Assignment
+  
 - **API Base URL (EC2):**  
   http://63.178.228.72:5000
 
 - **API Documentation (Swagger):**  
   http://63.178.228.72:5000/apidocs/
 
+- **Chatbot Link:**  
+  63.178.228.72
+
 - **Demo Video:**  
-  *(Add your video link here – YouTube / Drive)*
+  *(Video link here)*
 
 ---
 
