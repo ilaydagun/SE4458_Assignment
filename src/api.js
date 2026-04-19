@@ -118,7 +118,7 @@ Always respond with ONLY a raw JSON object (no markdown, no backticks):
 If the user's request is missing required information (e.g. date, passenger name, flight number), use action "chat" and ask for it.`;
 
 export async function askAgent(history) {
-  const res = await fetch('http://localhost:3001/api/claude', {
+  const res = await fetch('/api/claude', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
